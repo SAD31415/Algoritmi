@@ -1,0 +1,41 @@
+#include "pch.h"
+#include "CppUnitTest.h"
+#include "../Lab.1/Lab.1.cpp" 
+
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+double square(double x) {
+    return x * x;
+}
+
+namespace SimpsonMethodTests
+{
+    TEST_CLASS(UnitTest2)
+    {
+    public:
+        TEST_METHOD(TestMethod1)
+        {
+            double result = simpson_rule(square, 0.0, 3.0, 1000);
+            Assert::AreEqual(9.0, result, 0.00001);
+        }
+
+        TEST_METHOD(TestMethod2)
+        {
+            double a = -3.079596;
+            double b = 2.0;
+
+            double r1 = simpson_rule(function, a, b, 100);
+            double r2 = simpson_rule(function, a, b, 100);
+
+            Assert::AreEqual(r1, r2, 0.00001);
+        }
+
+        TEST_METHOD(TestMethod3)
+        {
+            double a = -3.079596;
+
+            double result = simpson_rule(function, a, a, 100);
+            Assert::AreEqual(0.0, result, 0.00001);
+        }
+    };
+}
