@@ -1,0 +1,37 @@
+from collections import deque
+class Node:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+def max_path_sum(root):
+    answer = float('-inf')
+    def dfs(node):
+        nonlocal answer
+        if node is None:
+            return 0
+        left = max(0, dfs(node.left))
+        right = max(0, dfs(node.right))
+        answer = max(answer, node.value + left + right)
+        return node.value + max(left, right)
+    dfs(root)
+    return answer
+
+root1 = Node(1)
+root1.left = Node(1)
+root1.right = Node(2)
+
+print(max_path_sum(root1))  # 4
+root2 = Node(-5)
+root2.left = Node(1)
+root2.right = Node(7)
+root2.right.left = Node(2)
+root2.right.right = Node(3)
+print(max_path_sum(root2))  # 12
+
+root3 = Node(7)
+root3.left = Node(2)
+root3.left.right = Node(3)
+root3.left.right.right = Node(9)
+print(max_path_sum(root3))  # 21
