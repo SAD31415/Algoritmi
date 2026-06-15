@@ -1,0 +1,20 @@
+import sys
+
+def main():
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+    data = list(map(int, input_data))
+
+    n = data[0]
+    M = data[1]
+    weights = data[2:]
+    dp = [0] * (M + 1)
+
+    for weight in weights:
+        for j in range(M, weight - 1, -1):
+            dp[j] = max(dp[j], dp[j - weight] + weight)
+    print(max(dp))
+
+if __name__ == "__main__":
+    main()
