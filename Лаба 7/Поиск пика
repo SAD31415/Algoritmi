@@ -1,0 +1,29 @@
+import sys
+
+def find_peak_element(arr, n):
+    left = 0
+    right = n - 1
+    
+    while left <= right:
+        mid = left + (right - left) // 2
+        is_left_ok = (mid == 0 or arr[mid] >= arr[mid - 1])
+        is_right_ok = (mid == n - 1 or arr[mid] >= arr[mid + 1])
+        if is_left_ok and is_right_ok:
+            return arr[mid]
+        if mid > 0 and arr[mid - 1] > arr[mid]:
+            right = mid - 1
+        else:
+            left = mid + 1
+    return -1
+
+def main():
+    input = sys.stdin.read
+    data = input().split()
+    if not data:
+        return
+    n = int(data[0])
+    arr = [int(x) for x in data[1:n+1]]
+    peak = find_peak_element(arr, n)
+    print(peak)
+if __name__ == '__main__':
+    main()
